@@ -64,7 +64,6 @@ def raspagem(limite=0, filtro=None, filtro_desconto=0, filtro_preco=None):
             print(f"Nome capturado: '{nome}'")
 
             if filtro and normalizar(filtro) not in normalizar(nome):
-                print(f"Filtro '{filtro}' não encontrado em '{nome}'")
                 continue
 
             if nome in vistos:

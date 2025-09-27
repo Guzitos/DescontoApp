@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Descontos</title>
+  <link rel="stylesheet" href="static/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+  <div class="top-bar">
+    <span id="enderecoCompleto">Carregando endereço...</span>
+    <div class="input-endereço" id="inputEndereco">
+      <input type="text" id="cepInput" placeholder="Digite seu CEP" maxlength="9"/>
+      <i class="fa fa-search icone-lupa" onclick="carregarProdutos(document.getElementById('cepInput').value)"></i>
+    </div>
+  </div>
+
+  <div class="conteudo">
+    <div id="Desconto">
+      <h2>Bem vindo(a)</h2>
+      <span class="desconto-tag">Até 50% de desconto</span>
+    </div>
+
+    <div class="mercados">
+      <div><img src="/static/imagens/tenda.png" alt="Atacadão" /></div>
+      <div><img src="/static/imagens/carrefour.png" alt="Assaí" /></div>
+      <div><img src="/static/imagens/atacadao-logo-1.png" alt="Henda" /></div>
+      <div><img src="/static/imagens/offcanvas-logo.png" alt="Cercadao" /></div>
+      <div><img src="/static/imagens/logoRicoySupermercados.png" alt="Ricoy" /></div>
+      <div><img src="/static/imagens/04.png" alt="Extra" /></div>
+    </div>
+
+    <div class="descontos-header">
+      <span>Descontos aqui! <span class="verde">%</span></span>
+      <span class="vermelho" id="verMais">Ver mais</span>
+    </div>
+
+    <div class="produtos" id="produtosContainer">
+      {% if produtos %}
+          {% for produto in produtos %}
+          <div class="produto-card">
+              <span class="desconto-tag-produto">
+                  {{ produto.desconto | default('20') }}% OFF
+                  </span>
+
+              <img src="{{ produto.imagem_url | default('/static/imagens/placeholder.png') }}" alt="{{ produto.nome }}" class="produto-imagem" />
+
+              <div class="produto-info">
+                  <span class="produto-nome">{{ produto.nome | default('Produto Sem Nome') }}</span>
+                  <span class="produto-preco">R$ {{ produto.preco | default('0.00') }}</span>
+                  <span class="produto-mercado">{{ produto.mercado | default('Mercado Local') }}</span>
+              </div>
+
+              <button class="produto-btn">Ver Oferta</button>
+          </div>
+          {% endfor %}
+      {% else %}
+          <p class="aviso-vazio">Nenhuma oferta de produto encontrada no momento. Tente atualizar a página.</p>
+      {% endif %}
+      </div>
+  </div>
+
+  <script src="/static/script.js"></script>
+</body>
+</html>

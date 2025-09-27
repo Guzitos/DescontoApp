@@ -1,0 +1,178 @@
+/* Reset básico */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  background: #f4f4f4;
+  padding: 20px;
+  color: #333;
+}
+
+.top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #fff;
+  padding: 15px 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  margin-bottom: 20px;
+}
+
+.desconto-tag {
+  background-color: #c6f9d6;
+  height: 42px;
+  padding: 10px;
+  font-size: 15px;
+}
+
+span{
+    border-radius: 30px;
+    text-align: center;
+    padding: 10px
+}
+
+#Desconto{
+    display: flex;
+    justify-content: space-between;
+    margin: 15px 0;
+}
+
+.conteudo {
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+h2 {
+  margin-bottom: 20px;
+  font-size: 22px;
+}
+
+.mercados {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.mercados div {
+  background-color: #eee;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 60px;
+  border-radius: 8px;
+  padding: 10px;
+}
+
+.mercados img {
+  max-height: 45px;
+  max-width: 100%;
+}
+.mercados > div{
+    box-shadow: 5px 5px 10px #00000030;
+    cursor: pointer;
+}
+.mercados > div:hover{
+    background-color: #d2d2d2;
+    transition: 0.5s;
+}
+
+.descontos-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.vermelho {
+  color: red;
+  cursor: pointer;
+}
+.vermelho:hover {
+  color: #e30000;
+}
+
+.verde {
+  color: green;
+}
+
+.produtos {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 15px;
+}
+
+.produto {
+  background-color: #d9d9d9;
+  height: 120px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+ /* Endereço centralizado quando válido */
+.endereco-centralizado {
+    display: block;
+    width: 100%;
+    text-align: center;
+    font-weight: bold;
+}
+
+.input-endereço {
+    margin-left: 10px;
+}
+#cepInput {
+   padding: 5px;
+   border-radius: 20px;
+   padding-left: 10px;
+   border: none;
+   outline: none;
+   background-color: #efefef;
+}
+.botao-buscar {
+   padding: 3px;
+   border: none;
+   border-radius: 10px;
+   outline: none;
+}
+ .input-endereço {
+    position: relative;
+    display: inline-block;
+    }
+
+    #cepInput {
+      padding-right: 35px; /* espaço para a lupa */
+      height: 35px;
+    }
+
+    .icone-lupa {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      cursor: pointer;
+      color: #555;
+    }
+
+    .endereco-centralizado {
+      display: block;
+      width: 100%;
+      text-align: center;
+      font-weight: bold;
+    }
+
+
+
+
+

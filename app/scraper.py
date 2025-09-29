@@ -12,9 +12,14 @@ def parse_card(card, filtro, filtro_desconto, filtro_preco, vistos):
     except:
         return None  # Se não tem nome, ignora
 
+    # Evita repetidos
     if nome in vistos:
         return None
     vistos.add(nome)
+
+    # Filtro por nome
+    if filtro and filtro.lower() not in nome.lower():
+        return None
 
     # Preço atual
     preco_texto, preco_num = "Sem preço", None
@@ -36,12 +41,22 @@ def parse_card(card, filtro, filtro_desconto, filtro_preco, vistos):
     except:
         pass
 
+    try:
+        link_element = card.find_element(By.CSS_SELECTOR, "a.Link-sc-j02w35-0")
+
+        # pega o atributo href
+        url_produto = link_element.get_attribute("href")
+
+    except:
+        pass
+
     # Imagem
     imagem = None
     try:
-        imagem = card.find_element(By.CLASS_NAME, "TPDLc").get_attribute("src")
+        img_element = card.find_element(By.CSS_SELECTOR, "a img")
+        imagem = img_element.get_attribute("src")
     except:
-        pass
+        imagem = "/static/imagens/placeholder.png"  # fallback se não encontrar
 
     # Filtros finais
     if desconto_num < filtro_desconto:
@@ -55,8 +70,10 @@ def parse_card(card, filtro, filtro_desconto, filtro_preco, vistos):
         "desconto": desconto,
         "preco_antigo": preco_antigo,
         "qnt_desconto": qnt_desconto,
-        "imagem": imagem
+        "imagem": imagem,
+        "UrlProduto": url_produto,
     }
+
 
 def raspagem(limite=0, filtro=None, filtro_desconto=0, filtro_preco=None):
     """Raspagem de produtos do Pão de Açúcar"""
@@ -97,3 +114,10 @@ def raspagem(limite=0, filtro=None, filtro_desconto=0, filtro_preco=None):
 
     navegador.quit()
     return produtos
+
+
+# Teste rápido
+if __name__ == "__main__":
+    itens = raspagem(limite=5)
+    for p in itens:
+        print(p)

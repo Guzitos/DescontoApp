@@ -50,6 +50,7 @@
                   <span class="produto-nome">{{ produto.nome | default('Produto Sem Nome') }}</span>
                   <span class="produto-preco">R$ {{ produto.preco | default('0.00') }}</span>
                   <span class="produto-mercado">{{ produto.mercado | default('Mercado Local') }}</span>
+                  <span class="imagem-produto">{{ produto.imagem | default('Sem Imagem') }}</span>
               </div>
 
               <button class="produto-btn">Ver Oferta</button>

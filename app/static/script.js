@@ -74,6 +74,7 @@ document.querySelector('.icone-lupa').addEventListener('click', enviarCep);
 
 const produtosContainer = document.getElementById('produtosContainer');
 const verMaisBtn = document.getElementById('verMais');
+const verOfertaBtn = document.getElementById('verMais');
 
 let todosOsProdutos = []; // Armazena todos os produtos buscados da API
 let produtosVisiveis = 0;
@@ -92,22 +93,22 @@ function criarCardProduto(produto) {
     const preco = produto.preco || '0.00';
     const desconto = produto.desconto || '20';
     const mercado = produto.mercado || 'Mercado Local';
-    const imagemUrl = produto.imagem_url || '/static/imagens/placeholder.png';
+    const imagemUrl = produto.imagem || '/static/imagens/placeholder.png';
+    const url_produto = produto.UrlProduto || '#';
 
     return `
         <div class="produto-card">
             <span class="desconto-tag-produto">
                 ${desconto}% OFF
             </span>
-            <img src="${imagemUrl}" alt="${nome}" class="produto-imagem" />
+             <img src="${imagemUrl}" alt="${nome}" class="produto-imagem" />
 
             <div class="produto-info">
                 <span class="produto-nome">${nome}</span>
                 <span class="produto-preco">R$ ${preco}</span>
                 <span class="produto-mercado">${mercado}</span>
             </div>
-
-            <button class="produto-btn">Ver Oferta</button>
+            <button class="produto-btn" onclick="window.open('${url_produto}', '_blank')">Ver Oferta</button>
         </div>
     `;
 }
@@ -175,7 +176,7 @@ async function carregarProdutos(cep = null) {
 // ==========================================================
 // INICIALIZAÇÃO
 // ==========================================================
-
+const linkOferta =
 // Adiciona evento de clique ao botão "Ver Mais"
 verMaisBtn.addEventListener('click', renderizarProdutos);
 

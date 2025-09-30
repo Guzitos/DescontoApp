@@ -172,7 +172,146 @@ h2 {
       font-weight: bold;
     }
 
+.produtos {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 15px;
+  align-items: stretch; /* força os cards a terem mesma altura */
+}
 
+.produto-nome{
+    width: 80%;
+    margin-bottom: 2px;
+    font-size: 14px;
+    text-align: center;
+    margin: 5px;
+}
+.produto-preco{
+    margin-top: 2px;
+    font-size: 12px;
+   text-align: center;
+    font-weight:bolder;
+}
+.imagem-produto{
+    width: 100px;
+    height: 70px;
+}
 
+.produto-btn{
+    padding: 5px;
+    width: 80%;
+    background-color: green;
+    text-align: center;
+    border-radius: 10px;
+    outline: none;
+    color: white;
+    border: none;
 
+}
+
+.produto-btn:hover{
+    background-color: #00ab00;
+    cursor: pointer;
+}
+
+.produto-card {
+  background: #fff;
+  border-radius: 10px;
+  padding: 10px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  text-align: center;
+  display: flex;
+  flex-direction: column;  /* organiza os itens em coluna */
+  justify-content: space-between; /* joga o botão pro fim */
+  transition: transform 0.2s ease;
+}
+
+.produto-card:hover {
+  transform: scale(1.03);
+}
+
+.desconto-tag-produto {
+  display: inline-block;
+  background: #ff4747;
+  color: #fff;
+  font-size: 12px;
+  font-weight: bold;
+  padding: 5px 8px;
+  border-radius: 5px;
+  position: absolute;
+  margin: 5px;
+}
+
+.produto-imagem {
+  width: 120px;
+  height: 120px;
+  object-fit: contain;
+  margin: 10px auto;
+  display: block;
+}
+
+.produto-info {
+  flex-grow: 1;   /* ocupa espaço proporcional */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start; /* mantém info no topo */
+  margin-bottom: 10px;
+}
+
+.produto-nome {
+  display: block;
+  font-size: 14px;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.produto-preco {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin: 5px 0;
+}
+
+.preco-antigo {
+  text-decoration: line-through;
+  color: #888;
+  font-size: 12px;
+}
+
+.preco-promocao {
+  color: #008000;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.produto-mercado {
+  display: block;
+  font-size: 12px;
+  color: #555;
+  margin-bottom: 5px;
+}
+
+.produto-descricao {
+  display: block;
+  font-size: 11px;
+  color: #777;
+  margin-bottom: 10px;
+}
+
+.produto-btn {
+  padding: 6px 10px;
+  width: 100%;
+  background-color: green;
+  border-radius: 8px;
+  color: white;
+  font-size: 13px;
+  font-weight: bold;
+  border: none;
+  transition: background 0.3s;
+}
+
+.produto-btn:hover {
+  background-color: #00ab00;
+  cursor: pointer;
+}
 

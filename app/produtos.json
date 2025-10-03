@@ -1,0 +1,110 @@
+[
+  {
+    "nome": "Café em Cápsula Torrado e Moído Ristretto Espresso Lor Caixa 52g 10 Unidades",
+    "preco": "R$ 29,99",
+    "desconto": "Sem desconto",
+    "preco_antigo": null,
+    "qnt_desconto": null,
+    "imagem": "https://static.paodeacucar.com/img/uploads/1/555/32933555.png?im=Resize,width=200",
+    "UrlProduto": "https://www.paodeacucar.com/produto/389382/cafe-em-capsula-torrado-e-moido-ristretto-espresso-lor-caixa-52g-10-unidades"
+  },
+  {
+    "nome": "Café em Cápsula Torrado e Moído Espresso Extraforte Pilão Caixa 52g 10 Unidades",
+    "preco": "R$ 28,99",
+    "desconto": "Sem desconto",
+    "preco_antigo": null,
+    "qnt_desconto": null,
+    "imagem": "https://static.paodeacucar.com/img/uploads/1/345/32931345.png?im=Resize,width=200",
+    "UrlProduto": "https://www.paodeacucar.com/produto/410466/cafe-em-capsula-torrado-e-moido-espresso-extraforte-pilao-caixa-52g-10-unidades"
+  },
+  {
+    "nome": "Café Torrado e Moído Coado a Vácuo Pilão Cafeteria Pacote 500g",
+    "preco": "R$ 34,49",
+    "desconto": "-25%",
+    "preco_antigo": "R$ 45,99",
+    "qnt_desconto": 11.5,
+    "imagem": "https://static.paodeacucar.com/img/uploads/1/454/671454.jpg?im=Resize,width=200",
+    "UrlProduto": "https://www.paodeacucar.com/produto/476526/cafe-torrado-e-moido-coado-a-vacuo-pilao-cafeteria-pacote-500g"
+  },
+  {
+    "nome": "Café Torrado e Moído Delicado Lor Torras Gourmet Sachê 250g",
+    "preco": "R$ 26,99",
+    "desconto": "-25%",
+    "preco_antigo": "R$ 35,99",
+    "qnt_desconto": 9.0,
+    "imagem": "https://static.paodeacucar.com/img/uploads/1/154/32937154.png?im=Resize,width=200",
+    "UrlProduto": "https://www.paodeacucar.com/produto/596302/cafe-torrado-e-moido-delicado-lor-torras-gourmet-sache-250g"
+  },
+  {
+    "nome": "Café Solúvel Liofilizado Classique Lor Vidro 130g",
+    "preco": "R$ 37,49",
+    "desconto": "-25%",
+    "preco_antigo": "R$ 49,99",
+    "qnt_desconto": 12.5,
+    "imagem": "https://static.paodeacucar.com/img/uploads/1/704/32946704.png?im=Resize,width=200",
+    "UrlProduto": "https://www.paodeacucar.com/produto/1593284/cafe-soluvel-liofilizado-classique-lor-vidro-130g"
+  },
+  {
+    "nome": "Vinho Tinto Espanhol El Ninot Tempranillo 750ml",
+    "preco": "R$ 34,90",
+    "desconto": "-50%",
+    "preco_antigo": "R$ 69,90",
+    "qnt_desconto": 35.0,
+    "imagem": "https://static.paodeacucar.com/img/uploads/1/565/32942565.jpg?im=Resize,width=200",
+    "UrlProduto": "https://www.paodeacucar.com/produto/460529/vinho-tinto-espanhol-el-ninot-tempranillo-750ml"
+  },
+  {
+    "nome": "Vinho Branco Espanhol El Ninot 750ml",
+    "preco": "R$ 34,90",
+    "desconto": "-50%",
+    "preco_antigo": "R$ 69,90",
+    "qnt_desconto": 35.0,
+    "imagem": "https://static.paodeacucar.com/img/uploads/1/573/32948573.jpg?im=Resize,width=200",
+    "UrlProduto": "https://www.paodeacucar.com/produto/460528/vinho-branco-espanhol--el-ninot-750ml"
+  },
+  {
+    "nome": "Vinho Tinto Argentino Dona Paula Malbec 750ml",
+    "preco": "R$ 39,95",
+    "desconto": "-50%",
+    "preco_antigo": "R$ 79,90",
+    "qnt_desconto": 39.95,
+    "imagem": "https://static.paodeacucar.com/img/uploads/1/858/32902858.png?im=Resize,width=200",
+    "UrlProduto": "https://www.paodeacucar.com/produto/336102/vinho-tinto-argentino-dona-paula-malbec-750ml"
+  },
+  {
+    "nome": "Espumante Frances Mimi Rose Brut 750ml",
+    "preco": "R$ 89,90",
+    "desconto": "-42%",
+    "preco_antigo": "R$ 155,90",
+    "qnt_desconto": 66.0,
+    "imagem": "https://static.paodeacucar.com/img/uploads/1/327/32901327.png?im=Resize,width=200",
+    "UrlProduto": "https://www.paodeacucar.com/produto/429430/espumante-frances-mimi-rose-brut-750ml"
+  },
+  {
+    "nome": "Açúcar Refinado Light UNIÃO Fit Pacote 500g",
+    "preco": "R$ 5,99",
+    "desconto": "Sem desconto",
+    "preco_antigo": null,
+    "qnt_desconto": null,
+    "imagem": "https://static.paodeacucar.com/img/uploads/1/705/32856705.png?im=Resize,width=200",
+    "UrlProduto": "https://www.paodeacucar.com/produto/176582/acucar-refinado-light-uniao-fit-pacote-500g"
+  },
+  {
+    "nome": "Feijão Carioca Pronto CAMIL Caixa 380g",
+    "preco": "R$ 9,39",
+    "desconto": "Sem desconto",
+    "preco_antigo": null,
+    "qnt_desconto": null,
+    "imagem": "https://static.paodeacucar.com/img/uploads/1/229/582229.png?im=Resize,width=200",
+    "UrlProduto": "https://www.paodeacucar.com/produto/43154/feijao-carioca-pronto-camil-caixa-380g"
+  },
+  {
+    "nome": "Café em Cápsula Torrado e Moído Mogiana Paulista 3 Corações Caixa 50g 10 Unidades",
+    "preco": "R$ 23,99",
+    "desconto": "Sem desconto",
+    "preco_antigo": null,
+    "qnt_desconto": null,
+    "imagem": "https://static.paodeacucar.com/img/uploads/1/851/32943851.png?im=Resize,width=200",
+    "UrlProduto": "https://www.paodeacucar.com/produto/1593264/cafe-em-capsula-torrado-e-moido-mogiana-paulista-3-coracoes-caixa-50g-10-unidades"
+  }
+]

@@ -24,7 +24,7 @@ def parse_card(card, vistos=set()):
     preco_texto, preco_num = "Sem preço", None
     try:
         preco_texto = card.find_element(By.CLASS_NAME, "PriceValue-sc-20azeh-4").text
-        preco_num = float(preco_texto.replace("R$", "").replace(",", ".").strip())
+        preco_num = float(preco_texto.replace("", "").replace(",", ".").strip())
     except:
         pass
 
@@ -32,7 +32,7 @@ def parse_card(card, vistos=set()):
     try:
         desconto = card.find_element(By.CLASS_NAME, "PercentSealLabel-sc-1cty9z3-4").text
         preco_antigo_texto = card.find_element(By.CLASS_NAME, "LineThroughValue-sc-1cty9z3-1").text
-        preco_antigo_num = float(preco_antigo_texto.replace("R$", "").replace(",", ".").strip())
+        preco_antigo_num = float(preco_antigo_texto.replace("", "").replace(",", ".").strip())
         qnt_desconto = round(preco_antigo_num - preco_num, 2)
         desconto_num = int(desconto.replace("-", "").replace("%", "").strip())
         preco_antigo = preco_antigo_texto

@@ -79,6 +79,7 @@ h2 {
     box-shadow: 5px 5px 10px #00000030;
     cursor: pointer;
 }
+
 .mercados > div:hover{
     background-color: #d2d2d2;
     transition: 0.5s;
@@ -176,7 +177,6 @@ h2 {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
   gap: 15px;
-  align-items: stretch; /* força os cards a terem mesma altura */
 }
 
 .produto-nome{
@@ -222,7 +222,7 @@ h2 {
   text-align: center;
   display: flex;
   flex-direction: column;  /* organiza os itens em coluna */
-  justify-content: space-between; /* joga o botão pro fim */
+  justify-content: flex-start; /* joga o botão pro fim */
   transition: transform 0.2s ease;
 }
 
@@ -270,12 +270,17 @@ h2 {
   justify-content: center;
   gap: 8px;
   margin: 5px 0;
+  font-size: 17px;
 }
 
 .preco-antigo {
   text-decoration: line-through;
   color: #888;
-  font-size: 12px;
+  font-size: 8px;
+
+}
+.produto-preco-antigo{
+  font-size: 14px;
 }
 
 .preco-promocao {
@@ -315,3 +320,112 @@ h2 {
   cursor: pointer;
 }
 
+.produtos-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.linha-produtos {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 15px;
+}
+
+ .produto-card {
+  background: #fff;
+  border-radius: 10px;
+  padding: 10px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  text-align: center;
+}
+
+/* Ajustes para mobile */
+
+@media (max-width: 600px) {
+
+  body {
+    padding: 0 10px;
+  }
+
+  .conteudo {
+    padding: 0;
+    background: none;
+    box-shadow: none;
+    border-radius: 0;
+    margin: 0;
+  }
+
+  .produtos {
+    grid-template-columns: repeat(2, 1fr); /* só 2 produtos por linha no mobile */
+    gap: 1;
+  }
+
+  .produto-imagem{
+    width: 60px;
+    height: 80px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+  }
+
+  .desconto-tag-produto{
+    font-size: 10px;
+  }
+
+  .produto-info{
+    padding: 0px;
+  }
+
+  .produto-card {
+    background: none;
+    border-radius: 0;
+    box-shadow: none;
+    background-color: #efeeee;
+    border-radius: 10px;
+    padding: 10px 0;
+  }
+
+  .input-endereço {
+    display: block;
+    width: 100%;
+    margin: 5px 0;
+  }
+
+  #cepInput {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .icone-lupa {
+    right: 10px;
+  }
+
+  .mercados {
+    grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+    gap: 5px;
+    padding: 0;
+  }
+
+  .mercados div {
+    box-shadow: none;
+    border-radius: 0;
+    background: none;
+  }
+  .produto-preco-antigo{
+     padding: 0px;
+     margin: 0px;
+  }
+  .produto-preco{
+     padding: 0px;
+     margin: 0px;
+  }
+  .produto-mercado{
+     padding: 0px;
+     margin: 0px;
+  }
+  .produto-nome{
+     font-size: 12px;
+     padding: 1px;
+     margin: 1px;
+  }
+}

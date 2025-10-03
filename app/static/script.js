@@ -81,14 +81,19 @@ function criarCardProduto(produto) {
     const imagemUrl = produto.imagem || '/static/imagens/placeholder.png';
     const url_produto = produto.UrlProduto || '#';
 
+    // Se tiver desconto, mostra riscado; se não, mostra "Sem desconto"
+    const precoAntigoHTML = (preco_antigo && preco_antigo !== 'sem desconto')
+        ? `<span class="produto-preco-antigo"><del>${preco_antigo}</del></span><br>`
+        : `<span class="produto-preco-antigo">Sem desconto</span><br>`;
+
     return `
         <div class="produto-card">
-            <span class="desconto-tag-produto">${desconto}% OFF</span>
+            <span class="desconto-tag-produto">${desconto} OFF</span>
             <img src="${imagemUrl}" alt="${nome}" class="produto-imagem" />
             <div class="produto-info">
                 <span class="produto-nome">${nome}</span><br>
-                <span class="produto-preco">R$ ${preco}</span><br>
-                <span class="produto-preco_antigo">R$ ${preco_antigo}</span><br>
+                ${precoAntigoHTML}
+                <span class="produto-preco"> ${preco}</span><br>
                 <span class="produto-mercado">${mercado}</span>
             </div>
             <button class="produto-btn" onclick="window.open('${url_produto}', '_blank')">Ver Oferta</button>
@@ -134,3 +139,5 @@ verMaisBtn.addEventListener('click', renderizarProdutos);
 
 // Inicializa
 carregarProdutos();
+
+

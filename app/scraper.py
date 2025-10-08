@@ -1,25 +1,22 @@
-from flask import Flask, render_template, jsonify
-import json
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
-app = Flask(__name__)
+# Funções importadas do nosso novo arquivo de banco de dados
+from database import init_db, salvar_produtos
 
-# ------------------------
-# Funções Selenium
-# ------------------------
 
-def parse_card(card, vistos=set()):
+def parse_card(card, vistos):
+    """Extrai informações de um card de produto."""
     try:
         nome = card.find_element(By.CLASS_NAME, "htgicU").text
+        if nome in vistos:
+            return None
+        vistos.add(nome)
     except:
         return None
-    if nome in vistos:
-        return None
-    vistos.add(nome)
 
     preco_texto, preco_num = "Sem preço", None
     try:
@@ -28,14 +25,14 @@ def parse_card(card, vistos=set()):
     except:
         pass
 
-    desconto, preco_antigo, qnt_desconto, desconto_num = "Sem desconto", None, None, 0
+    desconto, preco_antigo, qnt_desconto = "Sem desconto", None, 0
     try:
-        desconto = card.find_element(By.CLASS_NAME, "PercentSealLabel-sc-1cty9z3-4").text
+        desconto_texto = card.find_element(By.CLASS_NAME, "PercentSealLabel-sc-1cty9z3-4").text
         preco_antigo_texto = card.find_element(By.CLASS_NAME, "LineThroughValue-sc-1cty9z3-1").text
         preco_antigo_num = float(preco_antigo_texto.replace("R$", "").replace(",", ".").strip())
         qnt_desconto = round(preco_antigo_num - preco_num, 2)
-        desconto_num = int(desconto.replace("-", "").replace("%", "").strip())
         preco_antigo = preco_antigo_texto
+        desconto = desconto_texto
     except:
         pass
 
@@ -63,7 +60,13 @@ def parse_card(card, vistos=set()):
         "UrlProduto": url_produto,
     }
 
+
 def raspagem(limite=50):
+    """
+    Executa a raspagem no site e retorna uma lista de dicionários,
+    cada um representando um produto.
+    """
+    print("Iniciando raspagem...")
     chrome_options = Options()
     chrome_options.add_argument("--headless=new")
     chrome_options.add_argument("--no-sandbox")
@@ -76,14 +79,17 @@ def raspagem(limite=50):
 
     while coletados < limite and pagina <= 10:
         url = f"https://www.paodeacucar.com/especial/ofertasdodia-pao2023?page={pagina}"
+        print(f"Buscando página: {pagina}...")
         navegador.get(url)
         try:
             wait.until(EC.presence_of_all_elements_located((By.CLASS_NAME, "Card-sc-yvvqkp-0")))
-        except:
+        except Exception as e:
+            print(f"Não foi possível carregar a página {pagina}. Erro: {e}")
             break
 
         cards = navegador.find_elements(By.CLASS_NAME, "Card-sc-yvvqkp-0")
         if not cards:
+            print("Nenhum card de produto encontrado. Terminando.")
             break
 
         for card in cards:
@@ -96,34 +102,20 @@ def raspagem(limite=50):
         pagina += 1
 
     navegador.quit()
-    # Salva JSON
-    with open("produtos.json", "w", encoding="utf-8") as f:
-        json.dump(produtos, f, ensure_ascii=False, indent=2)
-
+    print(f"{len(produtos)} produtos foram coletados com sucesso.")
     return produtos
 
-# ------------------------
-# Rotas Flask
-# ------------------------
 
-@app.route('/')
-def index():
-    return render_template("index.html")
-
-@app.route('/produtos.json')
-def produtos_json():
-    try:
-        with open("produtos.json", "r", encoding="utf-8") as f:
-            produtos = json.load(f)
-        if not produtos:  # Se estiver vazio, atualiza
-            produtos = raspagem()
-    except FileNotFoundError:
-        produtos = raspagem()
-    return jsonify(produtos)
-
-# ------------------------
-# Main
-# ------------------------
-
+# --- Bloco de Execução Principal ---
 if __name__ == "__main__":
-    app.run(debug=True)
+    # 1. Garante que o banco de dados e a tabela existam antes de tudo.
+    init_db()
+
+    # 2. Executa a raspagem para obter a lista de produtos.
+    lista_de_produtos = raspagem()
+
+    # 3. Se a lista não estiver vazia, manda salvar no banco de dados.
+    if lista_de_produtos:
+        salvar_produtos(lista_de_produtos)
+    else:
+        print("Nenhum produto foi coletado para salvar.")

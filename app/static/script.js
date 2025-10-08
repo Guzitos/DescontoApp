@@ -112,7 +112,7 @@ async function carregarProdutos() {
         produtosContainer.innerHTML = '<p class="aviso-carregando">Carregando ofertas...</p>';
         verMaisBtn.style.display = 'none';
 
-        const response = await fetch('/produtos.json');
+        const response = await fetch('/api/produtos'); // <<< LINHA ATUALIZADA
         todosOsProdutos = await response.json();
         produtosVisiveis = 0;
 

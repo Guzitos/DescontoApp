@@ -1,27 +1,25 @@
-from flask import Flask, render_template, request, jsonify
-from scraper import raspagem
-import json
+from flask import Flask, render_template, jsonify
+import sqlite3
+from database import get_db_connection
 
 app = Flask(__name__)
+DB_NAME = "produtos.db"
 
-# Constantes
-API_KEY = "631b3d1b84c325f70b8a1ced5a35bbeb"
-
-# Rota principal - página inicial
 @app.route('/')
 def home():
+    """Renderiza a página inicial."""
     return render_template('index.html')
 
-
-@app.route('/produtos.json')
-def produtos_json():
-    try:
-        with open('produtos.json', 'r', encoding='utf-8') as f:
-            produtos = json.load(f)
-        return jsonify(produtos)
-    except FileNotFoundError:
-        return jsonify([])  # Se não existir ainda
-
+@app.route('/api/produtos')
+def api_produtos():
+    """Busca produtos no banco de dados e retorna como JSON."""
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM produtos")
+    produtos = cursor.fetchall()
+    conn.close()
+    # Converte a lista de objetos Row para uma lista de dicionários
+    return jsonify([dict(row) for row in produtos])
 
 if __name__ == '__main__':
     app.run(debug=True)

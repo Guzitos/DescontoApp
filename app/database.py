@@ -1,6 +1,6 @@
 import sqlite3
 
-DB_NAME = "produtos.db"  # Define o nome do arquivo aqui
+DB_NAME = "produtos.db"
 
 
 def get_db_connection():
@@ -24,33 +24,39 @@ def init_db():
             qnt_desconto REAL,
             imagem TEXT,
             UrlProduto TEXT,
+            mercado TEXT,
             data_coleta TIMESTAMP DEFAULT CURRENT_TIMESTAMP
         )
     """)
     conn.commit()
     conn.close()
-    print(f"Banco de dados '{DB_NAME}' inicializado.")
+    print(f"Banco de dados '{DB_NAME}' inicializado com sucesso.")
 
 
 def salvar_produtos(produtos):
-    """Salva uma lista de produtos no banco de dados, limpando os antigos."""
+    """Salva uma lista de produtos no banco de dados."""
+    if not produtos:
+        return
+
+    # Limpa apenas os produtos do mesmo mercado antes de inserir os novos
+    mercado_dos_produtos = produtos[0]['mercado']
+
     conn = get_db_connection()
     cursor = conn.cursor()
 
-    # Limpa dados antigos
-    cursor.execute("DELETE FROM produtos")
+    cursor.execute("DELETE FROM produtos WHERE mercado = ?", (mercado_dos_produtos,))
 
-    # Insere os novos produtos
     for produto in produtos:
         cursor.execute("""
-            INSERT INTO produtos (nome, preco, desconto, preco_antigo, qnt_desconto, imagem, UrlProduto) 
-            VALUES (?, ?, ?, ?, ?, ?, ?)
+            INSERT INTO produtos (nome, preco, desconto, preco_antigo, qnt_desconto, imagem, UrlProduto, mercado) 
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?)
         """, (
             produto["nome"], produto["preco"], produto["desconto"],
             produto["preco_antigo"], produto["qnt_desconto"],
-            produto["imagem"], produto["UrlProduto"]
+            produto["imagem"], produto["UrlProduto"],
+            produto["mercado"]
         ))
 
     conn.commit()
     conn.close()
-    print(f"{len(produtos)} produtos salvos no banco de dados.")
+    print(f"{len(produtos)} produtos de '{mercado_dos_produtos}' salvos no banco de dados.")

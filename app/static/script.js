@@ -22,6 +22,13 @@ async function iniciarRaspagem(mercado) {
 }
 
 function filtrarPorMercado(mercado) {
+    // 1. Limpa imediatamente o container de produtos na tela.
+    produtosContainer.innerHTML = '';
+
+    // 2. Reseta o contador de produtos visíveis.
+    produtosVisiveis = 0;
+
+    // 3. Agora sim, chama a função para carregar os novos produtos.
     carregarProdutos(mercado);
 }
 

@@ -16,14 +16,14 @@ MERCADOS_CONFIG = {
         "img_selector": "a img"
     } ,
     "Carrefour": {
-        "url_base": "https://www.paodeacucar.com/especial/ofertasdodia-pao2023?page={pagina}",
-        "card_class": "Card-sc-yvvqkp-0",
-        "nome_class": "htgicU",
-        "preco_class": "PriceValue-sc-20azeh-4",
-        "desconto_class": "PercentSealLabel-sc-1cty9z3-4",
-        "preco_antigo_class": "LineThroughValue-sc-1cty9z3-1",
-        "link_selector": "a.Link-sc-j02w35-0",
-        "img_selector": "a img"
+        "url_base": "https://mercado.carrefour.com.br/s?q=ofertas&page={pagina}",
+        "card_class": "border",
+        "nome_class": "leading-5",
+        "preco_class": "text-base",
+        "desconto_class": "text-sm", # Desconto é mais complexo aqui, pode não funcionar sempre
+        "preco_antigo_class": "text-extra-light",
+        "link_selector": None,
+        "img_selector": "div.flex.justify-center img"
     },
     # Adicione aqui as configurações para outros mercados (Carrefour, Extra, etc.)
     # "Carrefour": { ... }
@@ -57,7 +57,11 @@ def parse_card(card, vistos, config, nome_mercado):
 
     url_produto = "#"
     try:
-        url_produto = card.find_element(By.CSS_SELECTOR, config["link_selector"]).get_attribute("href")
+        # Se o link_selector for None, o card é o link. Senão, procura o link dentro do card.
+        if config.get("link_selector") is None:
+            url_produto = card.get_attribute("href")
+        else:
+            url_produto = card.find_element(By.CSS_SELECTOR, config["link_selector"]).get_attribute("href")
     except:
         pass
 

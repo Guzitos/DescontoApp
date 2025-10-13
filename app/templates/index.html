@@ -23,21 +23,30 @@
     </div>
 
     <div class="mercados">
-      <div><img src="/static/imagens/tenda.png" alt="Tenda" title="Tenda (raspagem não implementada)" /></div>
-      <div><img src="/static/imagens/carrefour.png" alt="Carrefour" title="Carrefour (raspagem não implementada)" /></div>
-      <div><img src="/static/imagens/atacadao-logo-1.png" alt="Atacadão" title="Atacadão (raspagem não implementada)" /></div>
 
-      <div title="Clique para buscar novas ofertas no Pão de Açúcar" onclick="iniciarRaspagem('Pão de Açúcar')">
-        <img src="/static/imagens/pao-de-acucar-logo-.png" alt="Pão de Açúcar" />
+      <div>
+        <img src="/static/imagens/pao-de-acucar-logo-.png" alt="Pão de Açúcar" title="Ver ofertas salvas do Pão de Açúcar" onclick="filtrarPorMercado('Pão de Açúcar')" />
+        <i class="fa fa-sync-alt icone-atualizar" title="Buscar novas ofertas no Pão de Açúcar (lento)" onclick="iniciarRaspagem('Pão de Açúcar')"></i>
       </div>
 
-      <div><img src="/static/imagens/logoRicoySupermercados.png" alt="Ricoy" title="Ricoy (raspagem não implementada)"/></div>
-      <div><img src="/static/imagens/04.png" alt="Extra" title="Extra (raspagem não implementada)"/></div>
+      <div>
+        <img src="/static/imagens/carrefour.png" alt="Carrefour" title="Ver ofertas salvas do Carrefour" onclick="filtrarPorMercado('Carrefour')" />
+        <i class="fa fa-sync-alt icone-atualizar" title="Buscar novas ofertas no Carrefour (lento)" onclick="iniciarRaspagem('Carrefour')"></i>
+      </div>
+
+      <div><img src="/static/imagens/tenda.png" alt="Tenda" /></div>
+      <div><img src="/static/imagens/atacadao-logo-1.png" alt="Atacadão" /></div>
+      <div><img src="/static/imagens/logoRicoySupermercados.png" alt="Ricoy" /></div>
+      <div><img src="/static/imagens/04.png" alt="Extra" /></div>
     </div>
 
     <div class="descontos-header">
       <span>Descontos aqui! <span class="verde">%</span></span>
       <span class="vermelho" id="verMais">Ver mais</span>
+    </div>
+
+    <div style="text-align: center; margin: 20px 0;">
+        <button class="produto-btn" style="width: auto; padding: 10px 20px;" onclick="filtrarPorMercado(null)">Ver Todas as Ofertas Salvas</button>
     </div>
 
     <div class="produtos" id="produtosContainer">

@@ -23,23 +23,25 @@ body {
   margin-bottom: 20px;
 }
 
+/* Estilos gerais para a tag span */
+span {
+    border-radius: 30px;
+    text-align: center;
+    padding: 10px;
+}
+
+#Desconto {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 15px 0;
+}
+
 .desconto-tag {
   background-color: #c6f9d6;
   height: 42px;
   padding: 10px;
   font-size: 15px;
-}
-
-span{
-    border-radius: 30px;
-    text-align: center;
-    padding: 10px
-}
-
-#Desconto{
-    display: flex;
-    justify-content: space-between;
-    margin: 15px 0;
 }
 
 .conteudo {
@@ -54,9 +56,10 @@ h2 {
   font-size: 22px;
 }
 
+/* Logos dos Mercados */
 .mercados {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
   gap: 15px;
   margin-bottom: 20px;
 }
@@ -69,21 +72,22 @@ h2 {
   height: 60px;
   border-radius: 8px;
   padding: 10px;
+  box-shadow: 5px 5px 10px #00000030;
+  transition: background-color 0.5s;
+  position: relative; /* Necessário para posicionar o ícone de atualizar */
+}
+
+.mercados div:hover {
+    background-color: #d2d2d2;
 }
 
 .mercados img {
   max-height: 45px;
   max-width: 100%;
-}
-.mercados > div{
-    box-shadow: 5px 5px 10px #00000030;
-    cursor: pointer;
-}
-.mercados > div:hover{
-    background-color: #d2d2d2;
-    transition: 0.5s;
+  cursor: pointer; /* Garante que a imagem principal pareça clicável */
 }
 
+/* Cabeçalho "Descontos aqui!" */
 .descontos-header {
   display: flex;
   justify-content: space-between;
@@ -99,119 +103,16 @@ h2 {
 .vermelho:hover {
   color: #e30000;
 }
-
 .verde {
   color: green;
 }
 
-.produtos {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-  gap: 15px;
-}
-
-.produto {
-  background-color: #d9d9d9;
-  height: 120px;
-  border-radius: 8px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-weight: bold;
-  font-size: 14px;
-}
-
- /* Endereço centralizado quando válido */
-.endereco-centralizado {
-    display: block;
-    width: 100%;
-    text-align: center;
-    font-weight: bold;
-}
-
-.input-endereço {
-    margin-left: 10px;
-}
-#cepInput {
-   padding: 5px;
-   border-radius: 20px;
-   padding-left: 10px;
-   border: none;
-   outline: none;
-   background-color: #efefef;
-}
-.botao-buscar {
-   padding: 3px;
-   border: none;
-   border-radius: 10px;
-   outline: none;
-}
- .input-endereço {
-    position: relative;
-    display: inline-block;
-    }
-
-    #cepInput {
-      padding-right: 35px; /* espaço para a lupa */
-      height: 35px;
-    }
-
-    .icone-lupa {
-      position: absolute;
-      right: 10px;
-      top: 50%;
-      transform: translateY(-50%);
-      cursor: pointer;
-      color: #555;
-    }
-
-    .endereco-centralizado {
-      display: block;
-      width: 100%;
-      text-align: center;
-      font-weight: bold;
-    }
-
+/* Área de Produtos */
 .produtos {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
   gap: 15px;
-  align-items: stretch; /* força os cards a terem mesma altura */
-}
-
-.produto-nome{
-    width: 80%;
-    margin-bottom: 2px;
-    font-size: 14px;
-    text-align: center;
-    margin: 5px;
-}
-.produto-preco{
-    margin-top: 2px;
-    font-size: 12px;
-   text-align: center;
-    font-weight:bolder;
-}
-.imagem-produto{
-    width: 100px;
-    height: 70px;
-}
-
-.produto-btn{
-    padding: 5px;
-    width: 80%;
-    background-color: green;
-    text-align: center;
-    border-radius: 10px;
-    outline: none;
-    color: white;
-    border: none;
-
-}
-
-.produto-btn:hover{
-    background-color: #00ab00;
-    cursor: pointer;
+  align-items: stretch;
 }
 
 .produto-card {
@@ -221,9 +122,10 @@ h2 {
   box-shadow: 0 2px 6px rgba(0,0,0,0.1);
   text-align: center;
   display: flex;
-  flex-direction: column;  /* organiza os itens em coluna */
-  justify-content: space-between; /* joga o botão pro fim */
+  flex-direction: column;
+  justify-content: space-between;
   transition: transform 0.2s ease;
+  position: relative; /* Necessário para a tag de desconto */
 }
 
 .produto-card:hover {
@@ -239,7 +141,8 @@ h2 {
   padding: 5px 8px;
   border-radius: 5px;
   position: absolute;
-  margin: 5px;
+  top: 5px;
+  left: 5px;
 }
 
 .produto-imagem {
@@ -251,51 +154,29 @@ h2 {
 }
 
 .produto-info {
-  flex-grow: 1;   /* ocupa espaço proporcional */
+  flex-grow: 1;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start; /* mantém info no topo */
+  justify-content: flex-start;
   margin-bottom: 10px;
 }
 
+.produto-mercado {
+  font-size: 12px;
+  color: #555;
+  margin-bottom: 5px;
+}
+
 .produto-nome {
-  display: block;
   font-size: 14px;
   font-weight: bold;
   margin-bottom: 5px;
 }
 
 .produto-preco {
-  display: flex;
-  justify-content: center;
-  gap: 8px;
-  margin: 5px 0;
-}
-
-.preco-antigo {
-  text-decoration: line-through;
-  color: #888;
   font-size: 12px;
-}
-
-.preco-promocao {
-  color: #008000;
-  font-weight: bold;
-  font-size: 14px;
-}
-
-.produto-mercado {
-  display: block;
-  font-size: 12px;
-  color: #555;
-  margin-bottom: 5px;
-}
-
-.produto-descricao {
-  display: block;
-  font-size: 11px;
-  color: #777;
-  margin-bottom: 10px;
+  text-align: center;
+  font-weight: bolder;
 }
 
 .produto-btn {
@@ -308,10 +189,80 @@ h2 {
   font-weight: bold;
   border: none;
   transition: background 0.3s;
+  cursor: pointer;
 }
 
 .produto-btn:hover {
   background-color: #00ab00;
-  cursor: pointer;
 }
 
+/* Input de Endereço/CEP */
+.input-endereço {
+    position: relative;
+    display: inline-block;
+}
+#cepInput {
+   padding: 5px;
+   border-radius: 20px;
+   padding-left: 10px;
+   border: none;
+   outline: none;
+   background-color: #efefef;
+   height: 35px;
+   padding-right: 35px; /* espaço para a lupa */
+}
+.icone-lupa {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #555;
+}
+.endereco-centralizado {
+  display: block;
+  width: 100%;
+  text-align: center;
+  font-weight: bold;
+}
+
+
+/* ===== CÓDIGO ADICIONADO PARA NOVAS FUNCIONALIDADES ===== */
+
+/* Estilo do ícone de atualizar nos logos de mercado */
+.icone-atualizar {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  font-size: 12px;
+  color: #555;
+  background-color: rgba(255, 255, 255, 0.6);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  /* Sobrescreve o padding geral da tag <i> (se aplicável) para ficar pequeno */
+  padding: 6px !important;
+  text-align: center;
+  width: 24px; /* Largura e altura para garantir o formato circular */
+  height: 24px;
+  line-height: 1; /* Alinha o ícone verticalmente */
+}
+
+/* Efeito ao passar o mouse por cima do ícone */
+.icone-atualizar:hover {
+  color: #000;
+  transform: rotate(180deg);
+  background-color: rgba(255, 255, 255, 0.9);
+}
+
+/* Avisos de carregamento e lista vazia */
+.aviso-carregando, .aviso-vazio {
+    grid-column: 1 / -1; /* Ocupa a largura total da grade de produtos */
+    text-align: center;
+    padding: 40px 20px;
+    font-size: 1.1em;
+    color: #555;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    margin: 20px 0;
+}

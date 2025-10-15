@@ -1,69 +1,87 @@
-from flask import Flask, render_template, jsonify
-import json
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
-app = Flask(__name__)
+MERCADOS_CONFIG = {
+    "Pão de Açúcar": {
+        "url_base": "https://www.paodeacucar.com/especial/ofertasdodia-pao2023?page={pagina}",
+        "card_class": "Card-sc-yvvqkp-0",
+        "nome_class": "htgicU",
+        "preco_class": "PriceValue-sc-20azeh-4",
+        "desconto_class": "PercentSealLabel-sc-1cty9z3-4",
+        "preco_antigo_class": "LineThroughValue-sc-1cty9z3-1",
+        "link_selector": "a.Link-sc-j02w35-0",
+        "img_selector": "a img"
+    } ,
+    "Carrefour": {
+        "url_base": "https://www.paodeacucar.com/especial/ofertasdodia-pao2023?page={pagina}",
+        "card_class": "Card-sc-yvvqkp-0",
+        "nome_class": "htgicU",
+        "preco_class": "PriceValue-sc-20azeh-4",
+        "desconto_class": "PercentSealLabel-sc-1cty9z3-4",
+        "preco_antigo_class": "LineThroughValue-sc-1cty9z3-1",
+        "link_selector": "a.Link-sc-j02w35-0",
+        "img_selector": "a img"
+    },
+    # Adicione aqui as configurações para outros mercados (Carrefour, Extra, etc.)
+    # "Carrefour": { ... }
+}
 
-# ------------------------
-# Funções Selenium
-# ------------------------
 
-def parse_card(card, vistos=set()):
+def parse_card(card, vistos, config, nome_mercado):
     try:
-        nome = card.find_element(By.CLASS_NAME, "htgicU").text
+        nome = card.find_element(By.CLASS_NAME, config["nome_class"]).text
+        if nome in vistos: return None
+        vistos.add(nome)
     except:
         return None
-    if nome in vistos:
-        return None
-    vistos.add(nome)
 
     preco_texto, preco_num = "Sem preço", None
     try:
-        preco_texto = card.find_element(By.CLASS_NAME, "PriceValue-sc-20azeh-4").text
-        preco_num = float(preco_texto.replace("", "").replace(",", ".").strip())
+        preco_texto = card.find_element(By.CLASS_NAME, config["preco_class"]).text
+        preco_num = float(preco_texto.replace("R$", "").replace(",", ".").strip())
     except:
         pass
 
-    desconto, preco_antigo, qnt_desconto, desconto_num = "Sem desconto", None, None, 0
+    desconto, preco_antigo, qnt_desconto = "Sem desconto", None, 0
     try:
-        desconto = card.find_element(By.CLASS_NAME, "PercentSealLabel-sc-1cty9z3-4").text
-        preco_antigo_texto = card.find_element(By.CLASS_NAME, "LineThroughValue-sc-1cty9z3-1").text
-        preco_antigo_num = float(preco_antigo_texto.replace("", "").replace(",", ".").strip())
+        desconto = card.find_element(By.CLASS_NAME, config["desconto_class"]).text
+        preco_antigo_texto = card.find_element(By.CLASS_NAME, config["preco_antigo_class"]).text
+        preco_antigo_num = float(preco_antigo_texto.replace("R$", "").replace(",", ".").strip())
         qnt_desconto = round(preco_antigo_num - preco_num, 2)
-        desconto_num = int(desconto.replace("-", "").replace("%", "").strip())
         preco_antigo = preco_antigo_texto
     except:
         pass
 
     url_produto = "#"
     try:
-        link_element = card.find_element(By.CSS_SELECTOR, "a.Link-sc-j02w35-0")
-        url_produto = link_element.get_attribute("href")
+        url_produto = card.find_element(By.CSS_SELECTOR, config["link_selector"]).get_attribute("href")
     except:
         pass
 
     imagem = "/static/imagens/placeholder.png"
     try:
-        img_element = card.find_element(By.CSS_SELECTOR, "a img")
-        imagem = img_element.get_attribute("src")
+        imagem = card.find_element(By.CSS_SELECTOR, config["img_selector"]).get_attribute("src")
     except:
         pass
 
     return {
-        "nome": nome,
-        "preco": preco_texto,
-        "desconto": desconto,
-        "preco_antigo": preco_antigo,
-        "qnt_desconto": qnt_desconto,
-        "imagem": imagem,
-        "UrlProduto": url_produto,
+        "nome": nome, "preco": preco_texto, "desconto": desconto,
+        "preco_antigo": preco_antigo, "qnt_desconto": qnt_desconto,
+        "imagem": imagem, "UrlProduto": url_produto, "mercado": nome_mercado
     }
 
-def raspagem(limite=50):
+
+def raspagem(nome_mercado, limite=30):
+    if nome_mercado not in MERCADOS_CONFIG:
+        print(f"Erro: Mercado '{nome_mercado}' não configurado.")
+        return []
+
+    config = MERCADOS_CONFIG[nome_mercado]
+    print(f"Iniciando raspagem para: {nome_mercado}...")
+
     chrome_options = Options()
     chrome_options.add_argument("--headless=new")
     chrome_options.add_argument("--no-sandbox")
@@ -71,59 +89,24 @@ def raspagem(limite=50):
     navegador = webdriver.Chrome(options=chrome_options)
     wait = WebDriverWait(navegador, 10)
 
-    pagina, coletados = 1, 0
-    produtos, vistos = [], set()
+    produtos, vistos, pagina = [], set(), 1
 
-    while coletados < limite and pagina <= 10:
-        url = f"https://www.paodeacucar.com/especial/ofertasdodia-pao2023?page={pagina}"
+    while len(produtos) < limite and pagina <= 5:
+        url = config["url_base"].format(pagina=pagina)
         navegador.get(url)
         try:
-            wait.until(EC.presence_of_all_elements_located((By.CLASS_NAME, "Card-sc-yvvqkp-0")))
-        except:
+            wait.until(EC.presence_of_all_elements_located((By.CLASS_NAME, config["card_class"])))
+            cards = navegador.find_elements(By.CLASS_NAME, config["card_class"])
+            if not cards: break
+            for card in cards:
+                if len(produtos) >= limite: break
+                produto = parse_card(card, vistos, config, nome_mercado)
+                if produto: produtos.append(produto)
+            pagina += 1
+        except Exception as e:
+            print(f"Erro na página {pagina} do {nome_mercado}: {e}")
             break
-
-        cards = navegador.find_elements(By.CLASS_NAME, "Card-sc-yvvqkp-0")
-        if not cards:
-            break
-
-        for card in cards:
-            if coletados >= limite:
-                break
-            produto = parse_card(card, vistos)
-            if produto:
-                produtos.append(produto)
-                coletados += 1
-        pagina += 1
 
     navegador.quit()
-    # Salva JSON
-    with open("produtos.json", "w", encoding="utf-8") as f:
-        json.dump(produtos, f, ensure_ascii=False, indent=2)
-
+    print(f"{len(produtos)} produtos coletados de {nome_mercado}.")
     return produtos
-
-# ------------------------
-# Rotas Flask
-# ------------------------
-
-@app.route('/')
-def index():
-    return render_template("index.html")
-
-@app.route('/produtos.json')
-def produtos_json():
-    try:
-        with open("produtos.json", "r", encoding="utf-8") as f:
-            produtos = json.load(f)
-        if not produtos:  # Se estiver vazio, atualiza
-            produtos = raspagem()
-    except FileNotFoundError:
-        produtos = raspagem()
-    return jsonify(produtos)
-
-# ------------------------
-# Main
-# ------------------------
-
-if __name__ == "__main__":
-    app.run(debug=True)
